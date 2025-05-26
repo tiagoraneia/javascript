@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idade para dirigir</title>
+</head>
+<body>
+  <h1>Verificação de idade para Direção</h1>
+  Qual a sua idade? <input type="number" id="txtdd">
+
+  <input type="button" value="Analisar" onclick="analisar()">
+
+  <div id="res"></div>
+
+  <script>
+    function analisar() {
+      var txtdd = window.document.querySelector('#txtdd')
+      var res = window.document.querySelector('#res')
+      var idd = Number(txtdd.value)
+
+      res.innerHTML = `<p>Sua idade atual é <strong>${idd} anos</strong></p>`
+
+      if (idd >= 18) {
+        res.innerHTML += `<p>Você está <strong>Apto</strong> a dirigir!</p>`
+      } else {
+      res.innerHTML += `<p>Você está <strong>inapto</strong> a dirigir!</p>`
+      }
+    }
+  </script>
+  
+</body>
+</html>
