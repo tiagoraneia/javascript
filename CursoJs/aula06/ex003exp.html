@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br"> <!-- Documento em HTML5, idioma português do Brasil -->
+<head>
+  <meta charset="UTF-8"> <!-- Permite o uso de acentos e caracteres especiais -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Torna o site adaptável a celulares, tablets etc. -->
+  <title>Meu primeiro programa</title> <!-- Nome que aparece na aba do navegador -->
+
+  <style>
+    /* ----- ESTILO (CSS) ----- */
+    body {
+      background-color: rgb(14, 161, 184); /* Cor de fundo azulada */
+      color: white;                        /* Cor padrão do texto */
+      font: normal 20px Arial;             /* Definição da fonte, tamanho e estilo */
+    }
+    h1 {
+      color: rgb(244, 244, 115); /* Cor diferente só para o título */
+    }
+  </style>
+</head>
+<body>
+  <!-- ----- CONTEÚDO DO SITE ----- -->
+
+  <h1>Olá, mundo!</h1> <!-- Título principal -->
+  <p>Já me livrei da maldição.</p> <!-- Parágrafo do corpo da página -->
+
+  <!-- ----- SCRIPT JAVASCRIPT ----- -->
+  <script>
+    // Pede ao usuário digitar um número
+    // O window.prompt sempre retorna um TEXTO, por isso usamos Number.parseInt para transformar em número inteiro
+    var n1 = Number.parseInt(window.prompt('Digite um número: '))
+
+    // Pede outro número e faz a mesma conversão
+    var n2 = Number.parseInt(window.prompt('Digite outro número: '))
+
+    // Faz a soma dos dois números e guarda o resultado em "s"
+    var s = n1 + n2
+
+    // Mostra uma mensagem usando Template String (crase ` `)
+    // Assim conseguimos inserir variáveis dentro do texto usando ${ }
+    window.alert(`A soma entre ${n1} e ${n2} é igual a ${s}`) 
+
+    /*
+      Observação:
+      - Se usar Number.parseInt() → transforma em NÚMERO INTEIRO (ex.: 10, 25, -3).
+      - Se usar Number.parseFloat() → transforma em NÚMERO REAL (com vírgula/ponto, ex.: 5.5, 3.14).
+      - Se usar apenas Number() → o JS escolhe automaticamente (se for inteiro vira inteiro, se for decimal vira real).
+    */
+  </script>
+</body>
+</html>

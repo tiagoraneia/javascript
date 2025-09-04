@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br"> <!-- Define que o documento será em HTML5 e o idioma principal é português -->
+<head>
+  <meta charset="UTF-8"> <!-- Permite usar acentos e caracteres especiais -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Faz a página se adaptar a telas menores (responsivo) -->
+  <title>Meu primeiro programa</title> <!-- Nome que vai aparecer na aba do navegador -->
+
+  <style>
+    /* ----- ESTILOS (CSS) ----- */
+    body {
+      background-color: rgb(14, 161, 184); /* Cor de fundo azulada */
+      color: white;                        /* Cor do texto */
+      font: normal 20px Arial;             /* Fonte usada no corpo do site */
+    }
+    h1 {
+      color: rgb(244, 244, 115); /* Cor do título principal (amareladinho) */
+    }
+  </style>
+</head>
+<body>
+  <!-- ----- CONTEÚDO VISÍVEL NA TELA ----- -->
+
+  <h1>Olá, mundo!</h1> <!-- Título principal exibido -->
+  <p>Já me livrei da maldição.</p> <!-- Texto de exemplo -->
+
+  <!-- ----- SCRIPT JAVASCRIPT ----- -->
+  <script>
+    // Cria uma variável chamada "nome" e pede ao usuário para digitar seu nome
+    var nome = window.prompt('Qual é seu nome?') 
+    
+    // Exibe uma mensagem de boas-vindas, juntando (concatenando) o texto com o nome que o usuário digitou
+    window.alert('É um grande prazer em te conhecer, ' + nome + '!') 
+    // O " + " serve para unir textos e variáveis
+  </script>
+
+</body>
+</html>

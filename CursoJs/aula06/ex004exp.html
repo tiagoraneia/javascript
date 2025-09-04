@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br"> <!-- Informa que o documento é HTML5, em português do Brasil -->
+<head>
+  <meta charset="UTF-8"> <!-- Define a codificação UTF-8 (permite acentos e caracteres especiais) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Faz a página se adaptar a diferentes tamanhos de tela -->
+  <title>Document</title> <!-- Nome da aba do navegador -->
+
+  <style>
+    /* ----- ESTILO (CSS) ----- */
+    body {
+      font: normal 20pt Arial; /* Definição da fonte: normal, tamanho 20pt e tipo Arial */
+    }
+  </style>
+</head>
+<body>
+  <!-- ----- SCRIPT JAVASCRIPT ----- -->
+  <script>
+    // Pede ao usuário para digitar seu nome
+    var nome = window.prompt('Qual é seu nome?')
+
+    // Escreve na página (com document.write) uma frase com:
+    // - O nome digitado em negrito (<strong>)
+    // - O tamanho do nome (usando .length)
+    document.write(`Olá, <strong>${nome}</strong>! Seu nome tem ${nome.length} letras. <br/>`)
+
+    // Exibe o nome todo em MAIÚSCULAS (usando .toUpperCase())
+    document.write(`Seu nome em maiúsculas é ${nome.toUpperCase()} <br/>`)
+
+    // Exibe o nome todo em minúsculas (usando .toLowerCase())
+    document.write(`Seu nome em minúsculas é ${nome.toLowerCase()}`)
+  </script>
+</body>
+</html>
