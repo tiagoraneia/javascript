@@ -1,0 +1,53 @@
+<!-- 
+  Estrutura básica de um documento HTML.
+  Este arquivo mostra como conectar um código JavaScript externo a uma página.
+-->
+
+<!DOCTYPE html>
+<!-- Indica que o documento está usando a versão mais recente do HTML (HTML5). -->
+
+<html lang="pt-br">
+<!-- Define o idioma principal da página como português do Brasil. -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Define o padrão de caracteres usado (UTF-8), que permite acentos e caracteres especiais. -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Ajusta o tamanho do layout para se adaptar à largura da tela de cada dispositivo (responsividade). -->
+
+  <title>Aulas de JavaScript</title>
+  <!-- Define o título da aba do navegador. -->
+</head>
+
+<body>
+  <!-- 
+    O corpo do HTML — é onde normalmente colocamos o conteúdo visível da página
+    (como textos, imagens, botões, etc.).
+    Neste exemplo, o corpo está vazio, porque o foco é apenas testar a ligação com o JavaScript.
+  -->
+
+  <!-- 
+    🔹 <script src="scripts.js"></script>
+
+    Essa linha é a ponte entre o HTML e o JavaScript.
+
+    - A tag <script> serve para carregar e executar código JavaScript.
+    - O atributo "src" indica o caminho até o arquivo externo de script.
+      Aqui, "scripts.js" significa que o arquivo JS está na mesma pasta que este HTML.
+
+    Quando o navegador lê essa linha, ele:
+      1. Encontra o arquivo "scripts.js";
+      2. Carrega o conteúdo do arquivo;
+      3. Executa o código dentro dele.
+
+    📍 Por que colocar o <script> no final do <body>:
+    - Porque o HTML é lido de cima para baixo.
+    - Se o JavaScript for carregado antes do HTML, ele pode tentar acessar elementos
+      que ainda não foram criados na página.
+    - Colocando o <script> no final, garantimos que toda a estrutura HTML já foi carregada
+      antes do JS ser executado.
+  -->
+  <script src="scripts.js"></script>
+</body>
+</html>
