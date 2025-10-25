@@ -1,5 +1,16 @@
 
-// Escopo global: essa variável pode ser acessada em qualquer lugar do código.
+// Se fizermos assim como abaixo, vai aparecer o nome Tiago.
+var user = "Tiago"
+console.log(user)
+
+// Mas se fizermos invertido não dará certo, não dara erro mas não aprensetará o conteúdo (nome Tiago)
+// console.log(user)
+// var user = "Tiago"
+
+
+
+
+// Escopo global: essa variável abaixo pode ser acessada em qualquer lugar do código.
 var email = 'joao@email.com'
 
 {
@@ -19,10 +30,17 @@ var email = 'joao@email.com'
 console.log(age)
 
 
+
+
 // Agora declaramos uma variável com 'let' no escopo global:
 let address = "Rua X"
 
 {
    // Tentando acessar 'address' aqui:
   console.log(address) // Aqui FUNCIONA, pois address foi criada no escopo global.
+  // mas o let não funciona ficando isolado dentro do bloco, ele respeita o escopo de onde foi criado
 }
+
+
+
+
