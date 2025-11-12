@@ -4,7 +4,6 @@ const newGuest = document.createElement("li")
 newGuest.classList.add("guest")
 
 const guestName = document.createElement("span")
-
 guestName.textContent = "Diego"
 
 const guestSurname = document.createElement("span")
@@ -12,7 +11,6 @@ guestSurname.textContent = "Fernandes"
 
 // Adiciona após o último filho.
 // newGuest.append(guestName, guestSurname)
-
 
 // Adiciona antes do primeiro filho.
 // newGuest.prepend(guestSurname)
