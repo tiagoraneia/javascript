@@ -20,6 +20,6 @@ execute("Upload do arquivo...", function() {
 })
 
 // Utilizando Arrow Function
-executre("Excluindo arquivo...", () => {
-  console.log("
+execute("Excluindo arquivo...", () => {
+  console.log("Arquivo excluído!")
 })
