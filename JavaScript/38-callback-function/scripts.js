@@ -23,3 +23,5 @@ execute("Upload do arquivo...", function() {
 execute("Excluindo arquivo...", () => {
   console.log("Arquivo excluído!")
 })
+
+execute("Salvando arquivo...", () => console.log("Arquivo Salvo!"))
