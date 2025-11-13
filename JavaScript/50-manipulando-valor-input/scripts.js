@@ -23,8 +23,10 @@ form.addEventListener("submit", (event) => {
 
   const regex  = /\D+/g
 
-  if (!regex.test(value)) {
-    alert("valor inválido. Digite corretamente!")
+  if (regex.test(value)) {
+    console.log(value)
+  } else {
+    alert("Valor inválido. Digite corretamente!")
   }
 
 
