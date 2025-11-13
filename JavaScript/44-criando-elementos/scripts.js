@@ -1,22 +1,15 @@
-const guests = document.querySelector("ul")
+const input = document.querySelector("input")
 
-const newGuest = document.createElement("li")
-newGuest.classList.add("guest")
 
-const guestName = document.createElement("span")
-guestName.textContent = "Diego"
+// Atualizar um atributo
 
-const guestSurname = document.createElement("span")
-guestSurname.textContent = "Fernandes"
+// Abaixo exemplo de como desabilitar formulário
+// input.setAttribute("disabled", true)
 
-// Adiciona após o último filho.
-// newGuest.append(guestName, guestSurname)
+// Mudar de texto para file (erscolher arquivo)
+// input.setAttribute("type", "file")
 
-// Adiciona antes do primeiro filho.
-// newGuest.prepend(guestSurname)
 
-// É mais simples que o append e aceita apenas um argumento
-newGuest.appendChild(guestName)
 
-// guests.append(newGuest)
-guests.prepend(newGuest)
+// Remover um atributo
+// input.removeAttribute("id")
