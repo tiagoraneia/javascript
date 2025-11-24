@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tela de Nota Fiscal</title>
+  <style>
+    :root{--bg:#f6f8fb;--card:#ffffff;--muted:#6b7280;--accent:#0ea5a4;--danger:#ef4444}
+    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{margin:0;background:var(--bg);color:#111}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;gap:20px;align-items:center}
+    .brand{background:linear-gradient(90deg,#06b6d4,#0ea5a4);color:white;padding:14px 18px;border-radius:10px;font-weight:700}
+    .meta{margin-left:auto;text-align:right}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.08);margin-top:18px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+    input[type=text], input[type=number], select, textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ef;background:#fff}
+    .row{display:flex;gap:12px}
+    .row > *{flex:1}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
+    th{color:var(--muted);font-weight:600}
+    tfoot td{font-weight:700}
+    .actions{display:flex;gap:8px;align-items:center}
+    button{background:var(--accent);color:white;padding:10px 12px;border-radius:8px;border:0;cursor:pointer}
+    button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(14,165,164,0.12)}
+    button.danger{background:var(--danger)}
+    .right{text-align:right}
+    .small{font-size:13px;color:var(--muted)}
+    .summary{max-width:360px;margin-left:auto}
+    .flex-between{display:flex;justify-content:space-between;align-items:center}
+    .note{font-size:13px;color:var(--muted);margin-top:8px}
+    @media (max-width:800px){.grid{grid-template-columns:1fr}.meta{text-align:left;margin-top:10px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">NOTA FISCAL</div>
+      <div class="meta small">
+        <div>Data: <span id="invoice-date"></span></div>
+        <div>Nº: <strong id="invoice-number">0001</strong></div>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="grid">
+        <div>
+          <label>Emitente (vendedor)</label>
+          <input type="text" id="seller-name" placeholder="Empresa Exemplo LTDA" />
+          <div class="row" style="margin-top:8px">
+            <input type="text" id="seller-cnpj" placeholder="CNPJ" />
+            <input type="text" id="seller-state" placeholder="Inscrição Estadual" />
+          </div>
+          <textarea id="seller-address" rows="2" placeholder="Endereço, bairro, cidade - UF"></textarea>
+        </div>
+
+        <div>
+          <label>Destinatário (comprador)</label>
+          <input type="text" id="buyer-name" placeholder="Cliente Exemplo" />
+          <div class="row" style="margin-top:8px">
+            <input type="text" id="buyer-cnpj" placeholder="CNPJ / CPF" />
+            <input type="text" id="buyer-state" placeholder="Inscrição Estadual" />
+          </div>
+          <textarea id="buyer-address" rows="2" placeholder="Endereço do cliente"></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:12px;align-items:flex-end">
+        <div style="flex:1">
+          <label>CFOP</label>
+          <input type="text" id="cfop" placeholder="Ex.: 5911" />
+        </div>
+        <div style="width:220px">
+          <label>Modalidade de ICMS</label>
+          <select id="icms-modality">
+            <option value="0">Selecione</option>
+            <option value="icms-normal">ICMS normal</option>
+            <option value="icms-st">Substituição Tributária (ST)</option>
+            <option value="icms-isento">Isento</option>
+          </select>
+        </div>
+        <div style="width:160px">
+          <label>Alíquota ICMS %</label>
+          <input type="number" id="icms-rate" value="18" min="0" step="0.01" />
+        </div>
+      </div>
+
+      <hr style="margin:18px 0;border:none;border-top:1px solid #eef2f7" />
+
+      <div class="flex-between">
+        <strong>Itens</strong>
+        <div class="actions">
+          <button type="button" id="add-item">+ Adicionar item</button>
+          <button class="ghost" id="clear-items">Limpar</button>
+        </div>
+      </div>
+
+      <table id="items-table">
+        <thead>
+          <tr>
+            <th style="width:40%">Descrição</th>
+            <th style="width:12%">NCM</th>
+            <th style="width:12%">Quantidade</th>
+            <th style="width:12%">Preço unit.</th>
+            <th style="width:12%">Desconto</th>
+            <th style="width:12%">Total</th>
+            <th style="width:4%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- linhas de itens serão inseridas dinamicamente -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="right">Subtotal</td>
+            <td id="subtotal">R$ 0,00</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5" class="right">ICMS</td>
+            <td id="icms-amount">R$ 0,00</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5" class="right">Outros impostos / Taxas</td>
+            <td><input type="number" id="other-tax" value="0" step="0.01" style="width:100%;border:0;background:transparent;text-align:right"/></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5" class="right">Total</td>
+            <td id="total">R$ 0,00</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <div style="display:flex;gap:12px;margin-top:12px;align-items:center">
+        <div style="flex:1">
+          <label>Observações</label>
+          <textarea id="notes" rows="2" placeholder="Observações da nota."></textarea>
+        </div>
+        <div class="summary card" style="padding:12px;box-shadow:none">
+          <div class="small">Resumo</div>
+          <div class="row" style="margin-top:8px">
+            <div>
+              <div class="small">Subtotal</div>
+              <div id="summary-sub">R$ 0,00</div>
+            </div>
+            <div>
+              <div class="small">ICMS</div>
+              <div id="summary-icms">R$ 0,00</div>
+            </div>
+          </div>
+          <div style="margin-top:12px" class="flex-between">
+            <div class="small">Total</div>
+            <div id="summary-total" style="font-size:20px;font-weight:700">R$ 0,00</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+        <button id="print">Imprimir / Salvar PDF</button>
+        <button class="ghost" id="export-json">Exportar JSON</button>
+        <button class="danger" id="reset">Resetar</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Utilitários
+    const fmt = (v)=>{
+      return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
+    }
+
+    const invoiceDateEl = document.getElementById('invoice-date')
+    invoiceDateEl.textContent = new Date().toLocaleDateString('pt-BR')
+
+    const tbody = document.querySelector('#items-table tbody')
+    const subtotalEl = document.getElementById('subtotal')
+    const icmsAmountEl = document.getElementById('icms-amount')
+    const totalEl = document.getElementById('total')
+    const summarySub = document.getElementById('summary-sub')
+    const summaryIcms = document.getElementById('summary-icms')
+    const summaryTotal = document.getElementById('summary-total')
+    const icmsRateEl = document.getElementById('icms-rate')
+    const otherTaxEl = document.getElementById('other-tax')
+
+    function createRow(){
+      const tr = document.createElement('tr')
+      tr.innerHTML = `
+        <td><input type="text" class="item-desc" placeholder="Descrição do produto/serviço"/></td>
+        <td><input type="text" class="item-ncm" placeholder="NCM"/></td>
+        <td><input type="number" class="item-qty" value="1" min="0" step="1"/></td>
+        <td><input type="number" class="item-price" value="0.00" min="0" step="0.01"/></td>
+        <td><input type="number" class="item-discount" value="0.00" min="0" step="0.01"/></td>
+        <td class="right item-total">R$ 0,00</td>
+        <td class="right"><button class="ghost btn-remove">✕</button></td>
+      `
+      tbody.appendChild(tr)
+      attachRowListeners(tr)
+      calculate()
+    }
+
+    function attachRowListeners(tr){
+      tr.querySelectorAll('input').forEach(inp=>{
+        inp.addEventListener('input',calculate)
+      })
+      tr.querySelector('.btn-remove').addEventListener('click',()=>{
+        tr.remove()
+        calculate()
+      })
+    }
+
+    document.getElementById('add-item').addEventListener('click',()=>createRow())
+    document.getElementById('clear-items').addEventListener('click',()=>{
+      tbody.innerHTML = ''
+      calculate()
+    })
+
+    icmsRateEl.addEventListener('input',calculate)
+    otherTaxEl.addEventListener('input',calculate)
+
+    function calculate(){
+      let subtotal = 0
+      tbody.querySelectorAll('tr').forEach(tr=>{
+        const qty = Number(tr.querySelector('.item-qty').value) || 0
+        const price = Number(tr.querySelector('.item-price').value) || 0
+        const disc = Number(tr.querySelector('.item-discount').value) || 0
+        const total = Math.max(0,(qty * price) - disc)
+        subtotal += total
+        tr.querySelector('.item-total').textContent = fmt(total)
+      })
+
+      const icmsRate = Number(icmsRateEl.value) || 0
+      const icmsAmount = subtotal * (icmsRate/100)
+      const otherTax = Number(otherTaxEl.value) || 0
+      const total = subtotal + icmsAmount + otherTax
+
+      subtotalEl.textContent = fmt(subtotal)
+      icmsAmountEl.textContent = fmt(icmsAmount)
+      totalEl.textContent = fmt(total)
+
+      summarySub.textContent = fmt(subtotal)
+      summaryIcms.textContent = fmt(icmsAmount)
+      summaryTotal.textContent = fmt(total)
+    }
+
+    // Inicializa com 1 linha
+    createRow()
+
+    // Exportar JSON
+    document.getElementById('export-json').addEventListener('click',()=>{
+      const data = buildInvoiceData()
+      const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'})
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `nota-fiscal-${document.getElementById('invoice-number').textContent || '0001'}.json`
+      a.click()
+      URL.revokeObjectURL(url)
+    })
+
+    function buildInvoiceData(){
+      const items = []
+      tbody.querySelectorAll('tr').forEach(tr=>{
+        items.push({
+          description: tr.querySelector('.item-desc').value,
+          ncm: tr.querySelector('.item-ncm').value,
+          qty: Number(tr.querySelector('.item-qty').value)||0,
+          unitPrice: Number(tr.querySelector('.item-price').value)||0,
+          discount: Number(tr.querySelector('.item-discount').value)||0,
+          total: (Number(tr.querySelector('.item-qty').value)||0)*(Number(tr.querySelector('.item-price').value)||0) - (Number(tr.querySelector('.item-discount').value)||0)
+        })
+      })
+      return {
+        number: document.getElementById('invoice-number').textContent,
+        date: document.getElementById('invoice-date').textContent,
+        seller: {
+          name: document.getElementById('seller-name').value,
+          cnpj: document.getElementById('seller-cnpj').value,
+          address: document.getElementById('seller-address').value
+        },
+        buyer: {
+          name: document.getElementById('buyer-name').value,
+          cnpj: document.getElementById('buyer-cnpj').value,
+          address: document.getElementById('buyer-address').value
+        },
+        cfop: document.getElementById('cfop').value,
+        icms: {
+          modality: document.getElementById('icms-modality').value,
+          rate: Number(document.getElementById('icms-rate').value)||0,
+          amount: Number(icmsAmountEl.textContent.replace(/[^0-9,-]+/g, '').replace(',','.'))||0
+        },
+        items,
+        subtotal: Number(subtotalEl.textContent.replace(/[^0-9,-]+/g, '').replace(',','.'))||0,
+        otherTax: Number(otherTaxEl.value)||0,
+        total: Number(totalEl.textContent.replace(/[^0-9,-]+/g, '').replace(',','.'))||0,
+        notes: document.getElementById('notes').value
+      }
+    }
+
+    // Imprimir
+    document.getElementById('print').addEventListener('click',()=>{
+      window.print()
+    })
+
+    // Reset
+    document.getElementById('reset').addEventListener('click',()=>{
+      if(confirm('Resetar todos os campos e itens?')){
+        document.querySelectorAll('input, textarea').forEach(i=>{ if(!['invoice-number','invoice-date'].includes(i.id)) i.value = '' })
+        tbody.innerHTML = ''
+        createRow()
+        calculate()
+      }
+    })
+
+  </script>
+</body>
+</html>
