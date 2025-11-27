@@ -1,3 +1,5 @@
+// Escopo de Função
+
 showMessage("Olá, Rodrigo!")
 
 function showMessage(message){
@@ -10,7 +12,6 @@ function showMessage(message){
 }
 
 showMessage("Tudo bem?")
-
 
 // Não existe nmesse escopo.
 endLine()

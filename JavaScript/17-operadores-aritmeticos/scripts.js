@@ -12,3 +12,5 @@ console.log("DIVISÃO: ", 12 / 2)
 console.log("RESTO DA DIVISÃO: ", 13 % 2)
 
 console.log("EXPONENCIAL: ", 3 ** 3)
+
+

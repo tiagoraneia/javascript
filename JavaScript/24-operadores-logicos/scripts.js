@@ -1,3 +1,5 @@
+// Operadores Lógicos
+
 let email = true
 let password = false
 let isAdmin = true
@@ -10,3 +12,5 @@ console.log(email || password)
 
 // NOT (negação) !
 console.log(!password)
+
+

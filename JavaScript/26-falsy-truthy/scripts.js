@@ -1,8 +1,6 @@
-/*
-FALSY quando um valor é considerado false e TRUTHY quando é
+/* FALSY quando um valor é considerado false e TRUTHY quando é
 considerado verdadeiro em contextos onde um boolean é
-obrigatório (condicionais e loops).
-*/
+obrigatório (condicionais e loops).*/
 
 console.log("### EXEMPLOS DE FALSY ###")
 console.log(false ? "VERDADEIRO" : "FALSO")

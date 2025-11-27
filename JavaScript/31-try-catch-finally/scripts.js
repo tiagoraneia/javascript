@@ -1,3 +1,5 @@
+// Try / Catch / Finally
+
 /*try {
   // TENTA executar algo
   console.log(r4esult)

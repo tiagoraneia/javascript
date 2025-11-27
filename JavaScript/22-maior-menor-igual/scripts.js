@@ -1,3 +1,5 @@
+// Maior, Menor e Igual
+
 let balance = 500
 let payment = 120
 

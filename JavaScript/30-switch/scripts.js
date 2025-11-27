@@ -1,3 +1,5 @@
+// Switch
+
 let option = 2
 
 switch (option) {

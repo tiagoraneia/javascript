@@ -1,7 +1,7 @@
+// Argumentos e Parâmetros
 
 // - Parâmetros: é a variável (escopo da função) que irá receber um valor em uma função.
 // - Argumentos: é o valor que é passado para a função. 
-
 
 // Passando o parâmetreo username.
 function message(username) {
@@ -11,8 +11,6 @@ function message(username) {
 // Passando argumentos.
 message("Rodrigo")
 message("Ana")
-
-
 
 function sum(a, b) {
 console.log(a + b)
